@@ -121,6 +121,7 @@ int main (int argc, char *argv[])
             free (key);
         }
     }
+	log_msg("line 124");
     meta_set (cert, "name", hostname); // used in overlay logging
     meta_set (cert, "keygen.hostname", hostname);
     meta_set (cert, "keygen.time", now);
@@ -132,7 +133,7 @@ int main (int argc, char *argv[])
                   ZMQ_VERSION_MAJOR,
                   ZMQ_VERSION_MINOR,
                   ZMQ_VERSION_PATCH);
-
+	log_msg("line 136");
     if (path) {
         int fd;
         FILE *f;
@@ -144,9 +145,11 @@ int main (int argc, char *argv[])
         if (fclose (f) < 0)
             log_err_exit ("close %s", path);
     }
+	log_msg("line 148");
     cert_destroy (cert);
-
+    log_msg("line 150");
     optparse_destroy (p);
+	log_msg("line 152");
     log_fini ();
 
     return 0;
