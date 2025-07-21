@@ -86,6 +86,7 @@ error:
 
 struct cert *cert_create (void)
 {
+    printf("ok before constructing cert\n");
     struct cert *cert;
     printf("got to cert_create\n");
     if (!(cert = cert_create_empty ()))
