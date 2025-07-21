@@ -67,14 +67,17 @@ void cert_destroy (struct cert *cert)
 static struct cert *cert_create_empty (void)
 {
     struct cert *cert;
-
+    printf("cert_create_empty before calloc\n");
     if (!(cert = calloc (1, sizeof (*cert))))
         return NULL;
+    printf("cert_create_empty after calloc\n");
     if (!(cert->metadata = zhash_new ())) {
         errno = ENOMEM;
         goto error;
     }
+    printf("cert_create_empty after zhash_new()\n");
     zhash_autofree (cert->metadata);
+    printf("cert_create_empty after zhash_autofree\n");
     return cert;
 error:
     cert_destroy (cert);
@@ -84,21 +87,26 @@ error:
 struct cert *cert_create (void)
 {
     struct cert *cert;
-
+    printf("got to cert_create\n");
     if (!(cert = cert_create_empty ()))
         goto error;
+    printf("got pass cert_create_empty\n");
     if (zmq_curve_keypair (cert->public_txt, cert->secret_txt) < 0)
         goto error;
+    printf("passed zmq_curve_keypair\n");
     if (!zmq_z85_decode (cert->public_key, cert->public_txt)
         || !zmq_z85_decode (cert->secret_key, cert->secret_txt)) {
         errno = EINVAL;
         goto error;
     }
+    printf("passed decodes\n");
     cert->public_valid = true;
     cert->secret_valid = true;
     return cert;
 error:
+    printf("something went wrong and went to the error tag\n");
     cert_destroy (cert);
+    printf("cert destroyed\n");
     return NULL;
 }
 
