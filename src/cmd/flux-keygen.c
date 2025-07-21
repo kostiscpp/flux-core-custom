@@ -98,7 +98,7 @@ int main (int argc, char *argv[])
         log_msg ("WARNING: add PATH argument to save generated certificate");
     log_msg ("line 99");
     if (!(cert = cert_create ()))
-        log_err_exit ("error creating CURVE certificate");
+        { log_msg ("not stuck in cert_create, but something went wrong(maybe external)"); log_err_exit ("error creating CURVE certificate"); }
     log_msg ("line 102");
     if (gethostname (hostname, sizeof (hostname)) < 0)
         log_err_exit ("gethostname");
