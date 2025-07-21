@@ -2604,10 +2604,12 @@ struct overlay *overlay_create (flux_t *h,
         goto error;
     if (flux_msg_handler_addvec (h, htab, ov, &ov->handlers) < 0)
         goto error;
+    log_msg("was i spot on?");
     if (!(ov->cert = cert_create ())) {
         log_err ("could not create curve certificate");
         goto error;
     }
+    log_msg("silence would be confirmation");
     if (!(ov->bizcard = bizcard_create (hostname, cert_public_txt (ov->cert))))
         goto error;
     if (!(ov->health_requests = flux_msglist_create ())
