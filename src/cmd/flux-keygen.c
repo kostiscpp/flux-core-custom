@@ -96,19 +96,21 @@ int main (int argc, char *argv[])
     }
     if (!path)
         log_msg ("WARNING: add PATH argument to save generated certificate");
-    log_msg ("line 199");
+    log_msg ("line 99");
     if (!(cert = cert_create ()))
         log_err_exit ("error creating CURVE certificate");
+    log_msg ("line 102");
     if (gethostname (hostname, sizeof (hostname)) < 0)
         log_err_exit ("gethostname");
+    log_msg ("line 105");
     if (ctime_iso8601_now (now, sizeof (now)) == NULL)
         log_err_exit ("localtime");
-    log_msg ("line 106");
+    log_msg ("line 108");
     if ((name = optparse_get_str (p, "name", NULL)))
         meta_set (cert, "name", name);
     if (optparse_hasopt (p, "meta")) {
         const char *arg;
-        log_msg ("inside hasopt meta, line 111");
+        log_msg ("inside hasopt meta, line 113");
         optparse_getopt_iterator_reset (p, "meta");
         while ((arg = optparse_getopt_next (p, "meta"))) {
             char *key;
@@ -121,7 +123,7 @@ int main (int argc, char *argv[])
             free (key);
         }
     }
-    log_msg ("line 124");
+    log_msg ("line 126");
     meta_set (cert, "name", hostname); // used in overlay logging
     meta_set (cert, "keygen.hostname", hostname);
     meta_set (cert, "keygen.time", now);
@@ -133,7 +135,7 @@ int main (int argc, char *argv[])
                   ZMQ_VERSION_MAJOR,
                   ZMQ_VERSION_MINOR,
                   ZMQ_VERSION_PATCH);
-    log_msg ("line 136");
+    log_msg ("line 138");
     if (path) {
         int fd;
         FILE *f;
@@ -145,11 +147,11 @@ int main (int argc, char *argv[])
         if (fclose (f) < 0)
             log_err_exit ("close %s", path);
     }
-    log_msg("line 148");
-    cert_destroy (cert);
     log_msg("line 150");
-    optparse_destroy (p);
+    cert_destroy (cert);
     log_msg("line 152");
+    optparse_destroy (p);
+    log_msg("line 154");
     log_fini ();
 
     return 0;
